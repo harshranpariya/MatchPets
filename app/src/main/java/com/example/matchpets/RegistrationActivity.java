@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistrationActivity extends AppCompatActivity {
     private EditText edEmail, edPassword, edName;
     private Button btnRegister;
-    private RadioGroup rgGender;
+    private RadioGroup rgType;
 
     private FirebaseAuth myAuth;
     private  FirebaseAuth.AuthStateListener firebaseAuthStateListener;
@@ -61,7 +61,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
 
-        rgGender = (RadioGroup) findViewById(R.id.rgGender);
+        rgType = (RadioGroup) findViewById(R.id.rgPetType);
 
 
 
@@ -69,7 +69,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int selectId = rgGender.getCheckedRadioButtonId();
+                int selectId = rgType.getCheckedRadioButtonId();
 
                 final RadioButton radioButton = (RadioButton) findViewById(selectId);
 
@@ -95,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             //save data in database if successful
                             String userId = myAuth.getCurrentUser().getUid();
 
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(radioButton.getText().toString()).child(userId).child("Name");
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Pets").child(radioButton.getText().toString()).child(userId).child("Name");
                             currentUserDb.setValue(name);
                         }
                     }

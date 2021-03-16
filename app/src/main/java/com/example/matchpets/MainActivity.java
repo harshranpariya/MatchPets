@@ -38,16 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
         myAuth = FirebaseAuth.getInstance();
 
+        checkPetType();
+
         //add is for name of the card
         al = new ArrayList<>();
-        al.add("php");
-        al.add("c");
-        al.add("python");
-        al.add("java");
-        al.add("html");
-        al.add("c++");
-        al.add("css");
-        al.add("javascript");
+//        al.add("php");
+//        al.add("c");
+//        al.add("python");
+//        al.add("java");
+//        al.add("html");
+//        al.add("c++");
+//        al.add("css");
+//        al.add("javascript");
 
         //here layout is textview for cards' color and text
         arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
@@ -81,11 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                // Ask for more data here
-                al.add("XML ".concat(String.valueOf(i)));
-               arrayAdapter.notifyDataSetChanged();
-                Log.d("LIST", "notified");
-               i++;
             }
 
             @Override
@@ -103,6 +100,87 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private String petType;
+    private String otherPetType;
+
+    public void checkPetType(){
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference dogDb = FirebaseDatabase.getInstance().getReference().child("Pets").child("Dog");
+        dogDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getKey().equals(user.getUid())){
+                    petType = "Dog";
+                    otherPetType = "Cat";
+                    getSameTypePets();
+                }
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        DatabaseReference catDb = FirebaseDatabase.getInstance().getReference().child("Pets").child("Cat");
+        catDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getKey().equals(user.getUid())){
+                    petType = "Cat";
+                    otherPetType = "Dog";
+                    getSameTypePets();
+                }
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    public void getSameTypePets(){
+        DatabaseReference sameTypeDb = FirebaseDatabase.getInstance().getReference().child("Pets").child(petType);
+        sameTypeDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.exists()){
+                    al.add(snapshot.child("Name").getValue().toString());
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     public void logoutUser(View view) {
