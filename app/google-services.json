@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1009863400840",
+    "firebase_url": "https://matchpets-27fe4-default-rtdb.firebaseio.com",
+    "project_id": "matchpets-27fe4",
+    "storage_bucket": "matchpets-27fe4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009863400840:android:9884b82ce8b18f749bae3d",
+        "android_client_info": {
+          "package_name": "com.example.matchpets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009863400840-gsocidknke8880ed97nhqqmcq7n4q38g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJenexYbnp638gpvSuoIXVLazSMVSWUOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009863400840-gsocidknke8880ed97nhqqmcq7n4q38g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009863400840:android:a24103228c6c46079bae3d",
+        "android_client_info": {
+          "package_name": "com.example.prjmatchpets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009863400840-gsocidknke8880ed97nhqqmcq7n4q38g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJenexYbnp638gpvSuoIXVLazSMVSWUOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009863400840-gsocidknke8880ed97nhqqmcq7n4q38g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009863400840:android:24e3e05d68cafced9bae3d",
+        "android_client_info": {
+          "package_name": "com.simcoder.tinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009863400840-gsocidknke8880ed97nhqqmcq7n4q38g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJenexYbnp638gpvSuoIXVLazSMVSWUOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009863400840-gsocidknke8880ed97nhqqmcq7n4q38g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
