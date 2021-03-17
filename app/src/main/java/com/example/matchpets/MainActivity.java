@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,15 +22,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    private  Cards cardsData[];
+    private arrayAdapter arrayAdapter;
     private int i;
 
     //this variable store all the info about logged in user
     private FirebaseAuth myAuth;
+
+    ListView listView;
+    List<Cards> rowItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
         checkPetType();
 
         //add is for name of the card
-        al = new ArrayList<>();
+        rowItems = new ArrayList<Cards>();
 
         //here layout is textview for cards' color and text
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.name, al );
+        arrayAdapter = new arrayAdapter(this, R.layout.item,rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -156,7 +161,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.exists()){
-                    al.add(snapshot.child("Name").getValue().toString());
+                    Cards item = new Cards(snapshot.getKey(),snapshot.child("Name").getValue().toString());
+                    rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
