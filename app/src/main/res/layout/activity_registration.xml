@@ -1,73 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity"
-    android:background="@mipmap/background"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:padding="20dp"
     >
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/background"
+        android:layout_gravity="center"/>
 
-    <EditText
-        android:id="@+id/edName"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome"
+        android:textSize="40sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:layout_marginTop="-20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up for the perfect match"
+        android:textSize="18sp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:hint="Pet Name"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-
-    <RadioGroup
-        android:id="@+id/rgPetType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/edName"
-        android:layout_marginTop="16dp"
-        >
-
-        <RadioButton
-            android:id="@+id/rbDog"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dog" />
+            android:hint="Pets Name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <RadioButton
-            android:id="@+id/rbCat"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+         <RadioGroup
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/rgPetType"
+             android:orientation="horizontal">
+
+             <RadioButton
+                 android:id="@+id/rbDog"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:text="Dog" />
+
+
+
+
+             <RadioButton
+                 android:id="@+id/rbCat"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:text="Cat"
+                 android:layout_marginLeft="10sp"/>
+         </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cat" />
-    </RadioGroup>
+            android:hint="Email Address"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <EditText
-        android:id="@+id/edEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Owners Email"
-        app:layout_constraintTop_toBottomOf="@id/rgPetType" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/edPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        app:layout_constraintTop_toBottomOf="@id/edEmail"
-        android:layout_marginTop="16dp"
-        />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            app:passwordToggleEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/edPassword"
-        android:layout_marginTop="16dp"
         style="@style/style_button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/black"
+        android:textColor="#FFF"
         />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/signUpScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Already Have an account? Login"
+        android:textColor="@color/black"
+        android:background="#00000000"
+        />
+</LinearLayout>

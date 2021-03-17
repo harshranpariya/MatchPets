@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,12 +23,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private EditText edEmail, edPassword, edName;
-    private Button btnRegister;
+    private TextInputLayout edEmail, edPassword, edName;
+    private Button btnRegister , btnSignUp;
     private RadioGroup rgType;
 
     private FirebaseAuth myAuth;
     private  FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +58,23 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
 
-        edEmail = (EditText) findViewById(R.id.edEmail);
-        edPassword = (EditText) findViewById(R.id.edPassword);
-        edName = (EditText) findViewById(R.id.edName);
+        edEmail = (TextInputLayout) findViewById(R.id.edEmail);
+        edPassword = (TextInputLayout) findViewById(R.id.edPassword);
+        edName = (TextInputLayout) findViewById(R.id.edName);
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
 
         rgType = (RadioGroup) findViewById(R.id.rgPetType);
 
+        btnSignUp = (Button) findViewById(R.id.signUpScreen);
 
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +89,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                final String name = edName.getText().toString();
-                final String email = edEmail.getText().toString();
-                final String password = edPassword.getText().toString();
+                final String name = edName.getEditText().getText().toString().trim();
+                final String email = edEmail.getEditText().getText().toString().trim();
+                final String password = edPassword.getEditText().getText().toString().trim();
 
                 myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override

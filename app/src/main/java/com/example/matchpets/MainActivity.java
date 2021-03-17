@@ -42,17 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         //add is for name of the card
         al = new ArrayList<>();
-//        al.add("php");
-//        al.add("c");
-//        al.add("python");
-//        al.add("java");
-//        al.add("html");
-//        al.add("c++");
-//        al.add("css");
-//        al.add("javascript");
 
         //here layout is textview for cards' color and text
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.name, al );
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -72,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLeftCardExit(Object dataObject) {
                 //Do something on the left!
-                Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Not Intrested", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Intrested", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -182,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void logoutUser(View view) {
         myAuth.signOut();
