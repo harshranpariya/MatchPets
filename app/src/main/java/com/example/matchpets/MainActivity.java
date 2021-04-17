@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -33,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
     //this variable store all the info about logged in user
     private FirebaseAuth myAuth;
 
+    private String currentUId;
+    private DatabaseReference petsDb;
+
+
+
     ListView listView;
     List<Cards> rowItems;
 
@@ -41,12 +47,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        petsDb = FirebaseDatabase.getInstance().getReference().child("Pets");
         myAuth = FirebaseAuth.getInstance();
+        currentUId = myAuth.getCurrentUser().getUid();
 
         checkPetType();
 
         //add is for name of the card
         rowItems = new ArrayList<Cards>();
+        getSupportActionBar().setTitle("Home");
 
         //here layout is textview for cards' color and text
         arrayAdapter = new arrayAdapter(this, R.layout.item,rowItems);
@@ -69,11 +78,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLeftCardExit(Object dataObject) {
                 //Do something on the left!
+                Cards obj = (Cards) dataObject;
+                String petId = obj.getUserId();
+                petsDb.child(petType).child(petId).child("connections").child("nope").child(currentUId).setValue(true);
                 Toast.makeText(MainActivity.this, "Not Intrested", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
+                Cards obj = (Cards) dataObject;
+                String petId = obj.getUserId();
+                petsDb.child(petType).child(petId).child("connections").child("yes").child(currentUId).setValue(true);
+                isConnectionMatch(petId);
                 Toast.makeText(MainActivity.this, "Intrested", Toast.LENGTH_SHORT).show();
 
             }
@@ -97,6 +113,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void isConnectionMatch(String petId) {
+        DatabaseReference currentPetConnectionDb = petsDb.child(petType).child(currentUId).child("connections").child("yes").child(petId);
+        currentPetConnectionDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    Toast.makeText(MainActivity.this , "new Connection",Toast.LENGTH_LONG).show();
+                    petsDb.child(petType).child(snapshot.getKey()).child("connections").child("matches").child(currentUId).setValue(true);
+                    petsDb.child(petType).child(currentUId).child("connections").child("matches").child(snapshot.getKey()).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private String petType;
@@ -160,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         sameTypeDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists()){
+                if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId)){
                     Cards item = new Cards(snapshot.getKey(),snapshot.child("Name").getValue().toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
@@ -187,6 +222,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,ChooseLoginRegistrationActivity.class);
         startActivity(intent);
         finish();
+        return;
+    }
+
+    public void goToSettings(View view) {
+        Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+
+        intent.putExtra("petType", petType);
+        startActivity(intent);
         return;
     }
 }

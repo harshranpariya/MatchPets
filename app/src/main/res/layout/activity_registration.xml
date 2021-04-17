@@ -58,7 +58,8 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:id="@+id/rgPetType"
-             android:orientation="horizontal">
+             android:orientation="horizontal"
+             android:layout_marginTop="15dp">
 
              <RadioButton
                  android:id="@+id/rbDog"
@@ -82,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email Address"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -97,7 +99,8 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -118,6 +121,7 @@
         style="@style/style_button"
         android:background="@color/black"
         android:textColor="#FFF"
+        android:layout_marginTop="15dp"
         />
 
     <Button

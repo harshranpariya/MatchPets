@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         myAuth = FirebaseAuth.getInstance();
-
+        getSupportActionBar().setTitle("Login");
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener(){
 
             //if everytime author will change than it call this functon
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                         //if login is not successful
                         if(!task.isSuccessful())
                         {
-                            Toast.makeText(LoginActivity.this, "sign in error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Invalid Email or Password", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

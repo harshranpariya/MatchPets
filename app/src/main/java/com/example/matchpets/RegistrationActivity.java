@@ -37,6 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         myAuth = FirebaseAuth.getInstance();
+        getSupportActionBar().setTitle("Pet Registration");
 
         //when we register successfully user automatically loged in and we can move on the main page.
 
