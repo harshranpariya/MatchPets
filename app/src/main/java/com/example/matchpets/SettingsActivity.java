@@ -44,9 +44,9 @@ public class SettingsActivity extends AppCompatActivity {
     private ImageView mProfileImage;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mCustomerDatabase;
+    private DatabaseReference mUserDatabase;
 
-    private String userId , name, phone, profileImageUrl;
+    private String userId , name, phone, profileImageUrl ,petType;
 
     private Uri resultUri;
 
@@ -55,7 +55,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        String petType = getIntent().getExtras().getString("petType");
 
 
 
@@ -69,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        mCustomerDatabase = FirebaseDatabase.getInstance().getReference().child("Pets").child(petType).child(userId);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child(userId);
         
         getPetInfo();
         mProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +94,7 @@ public class SettingsActivity extends AppCompatActivity {
                 petInfo.put("name" , name);
                 petInfo.put("phone" , phone);
 
-                mCustomerDatabase.updateChildren(petInfo);
+                mUserDatabase.updateChildren(petInfo);
 
                 if(resultUri != null){
                     StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);
@@ -124,19 +123,9 @@ public class SettingsActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String imageUrl = uri.toString();
-                                    System.out.println("--------------------------");
-                                    System.out.println("--------------------------");
-
-                                    System.out.println("--------------------------");
-
-                                    System.out.println(imageUrl);
-                                    System.out.println("--------------------------");
-                                    System.out.println("--------------------------");
-                                    System.out.println("--------------------------");
-
                                     Map petInfo = new HashMap();
                                     petInfo.put("profileImageUrl" , imageUrl);
-                                    mCustomerDatabase.updateChildren(petInfo);
+                                    mUserDatabase.updateChildren(petInfo);
                                     finish();
                                     return;
                                 }
@@ -162,7 +151,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void getPetInfo() {
-        mCustomerDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getChildrenCount() > 0){
@@ -176,6 +165,11 @@ public class SettingsActivity extends AppCompatActivity {
                         phone = map.get("phone").toString();
                         mPhoneField.setText(phone);
                     }
+
+                    if(map.get("type") != null){
+                        petType = map.get("type").toString();
+                    }
+
                     Glide.clear(mProfileImage);
                     if(map.get("profileImageUrl") != null){
                         profileImageUrl = map.get("profileImageUrl").toString();

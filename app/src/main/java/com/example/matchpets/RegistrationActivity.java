@@ -110,8 +110,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             //save data in database if successful
                             String userId = myAuth.getCurrentUser().getUid();
 
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Pets").child(radioButton.getText().toString()).child(userId);
+                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Pets").child(userId);
                             Map userInfo = new HashMap<>();
+                            userInfo.put("type",radioButton.getText().toString());
                             userInfo.put("name", name);
                             userInfo.put("profileImageUrl", "default");
 
