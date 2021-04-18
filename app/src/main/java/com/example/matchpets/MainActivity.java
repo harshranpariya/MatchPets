@@ -195,10 +195,22 @@ public class MainActivity extends AppCompatActivity {
         sameTypeDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId)){
-                    Cards item = new Cards(snapshot.getKey(),snapshot.child("Name").getValue().toString());
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
+                try {
+                    if (snapshot.exists() && !snapshot.child("connections").child("nope").hasChild(currentUId) && !snapshot.child("connections").child("yes").hasChild(currentUId)) {
+
+                        String profileImageUrl = "default";
+                        if(!snapshot.child("profileImageUrl").getValue().equals("default")) {
+                            profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
+                        }
+
+                        Cards item = new Cards(snapshot.getKey(), snapshot.child("Name").getValue().toString(), profileImageUrl);
+
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                }catch (Exception e)
+                {
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
             @Override
