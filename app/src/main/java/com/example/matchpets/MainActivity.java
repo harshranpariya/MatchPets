@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.matchpets.Cards.Cards;
+import com.example.matchpets.Cards.arrayAdapter;
+import com.example.matchpets.Matches.MatchesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -24,11 +26,12 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     private Cards cardsData[];
-    private arrayAdapter arrayAdapter;
+    private com.example.matchpets.Cards.arrayAdapter arrayAdapter;
     private int i;
 
     //this variable store all the info about logged in user
@@ -141,43 +144,70 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference petDb = petsDb.child(user.getUid());
-        petDb.addChildEventListener(new ChildEventListener() {
+
+        petDb.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.getKey().equals(user.getUid())) {
-                    if(snapshot.exists()){
-                        if(snapshot.child("type") != null){
-                            petType = snapshot.child("type").getValue().toString();
-                            switch (petType){
-                                case "Dog":
-                                    otherPetType = "Cat";
-                                    break;
-                                case "Cat":
-                                    otherPetType = "Dog";
-                                    break;
-                            }
-                            getSameTypePets();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    if (snapshot.exists()) {
+                        petType = snapshot.child("type").getValue().toString();
+                        switch (petType) {
+                            case "Dog":
+                                otherPetType = "Cat";
+                                break;
+                            case "Cat":
+                                otherPetType = "Dog";
+                                break;
                         }
+                        getSameTypePets();
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-
-            @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+//        petDb.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                    if(snapshot.exists()){
+//                        if(snapshot.child("type").getValue() != null){
+//                            petType = Objects.requireNonNull(snapshot.child("type").getValue()).toString();
+//                            switch (petType){
+//                                case "Dog":
+//                                    otherPetType = "Cat";
+//                                    break;
+//                                case "Cat":
+//                                    otherPetType = "Dog";
+//                                    break;
+//                            }
+//                            getSameTypePets();
+//                        }
+//
+//                    }
+//                }
+//
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//            }
+//        });
 
 //        DatabaseReference catDb = FirebaseDatabase.getInstance().getReference().child("Pets").child("Cat");
 //        catDb.addChildEventListener(new ChildEventListener() {
@@ -218,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!snapshot.child("profileImageUrl").getValue().equals("default")) {
                             profileImageUrl = snapshot.child("profileImageUrl").getValue().toString();
                         }
+
                         Cards item = new Cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), profileImageUrl);
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
@@ -256,6 +287,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(intent);
+        return;
+    }
+
+    public void goToMatches(View view) {
+        Intent intent = new Intent(MainActivity.this, MatchesActivity.class);
         startActivity(intent);
         return;
     }

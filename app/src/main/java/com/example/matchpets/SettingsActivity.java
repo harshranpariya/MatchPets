@@ -68,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child(userId);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Pets").child(userId);
         
         getPetInfo();
         mProfileImage.setOnClickListener(new View.OnClickListener() {
