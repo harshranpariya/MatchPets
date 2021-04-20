@@ -13,9 +13,14 @@ public class ChatObject {
         return message;
     }
 
-    public void setMessage(String message) {
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+
+    public void setMessage(String userID) {
         this.message = message;
     }
+
 
     public Boolean getCurrentUser() {
         return currentUser;
