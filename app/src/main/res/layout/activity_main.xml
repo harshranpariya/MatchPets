@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.matchpets.MainActivity">
+    tools:context="com.example.matchpets.MainActivity"
+    >
 
 
     <Button
@@ -45,12 +46,13 @@
 
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         android:id="@+id/frame"
-        android:background="@android:color/white"
+        android:background="#f25f4c"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:rotation_degrees="15.5"
         tools:context=".MyActivity"
         style="@style/style_button"
+
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

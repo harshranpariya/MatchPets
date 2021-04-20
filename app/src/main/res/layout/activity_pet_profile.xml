@@ -9,13 +9,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#ff6e6c">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="#8bd3dd"
+            android:background="#ff6e6c"
             android:padding="20dp">
 
             <ImageView
@@ -36,15 +37,7 @@
                 android:text="Rahul Pipaliya"
                 android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/full_name"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/profile_image"
-                android:includeFontPadding="false"
-                android:text="Rahul"
-                android:textSize="14sp" />
+
 
 
         </RelativeLayout>
@@ -60,7 +53,7 @@
                 android:layout_height="125dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#8bd3dd"
+                app:cardBackgroundColor="#ff8906"
                 app:cardElevation="10dp">
 
                 <RelativeLayout
@@ -103,7 +96,7 @@
                 android:layout_height="125dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#8bd3dd"
+                app:cardBackgroundColor="#ff8906"
                 app:cardElevation="10dp">
 
                 <RelativeLayout
@@ -135,7 +128,7 @@
                         android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
                         android:includeFontPadding="false"
-                        android:text="Swipes"
+                        android:text="Intrested"
                         android:textSize="20sp" />
 
                 </RelativeLayout>
@@ -169,31 +162,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="Email Address">
+                android:hint="Phone Number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email"
+                    android:id="@+id/petPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="tommy@gmail.com">
-
-                </com.google.android.material.textfield.TextInputEditText>
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="Password">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:password="true"
-                    android:text="password">
+                    android:inputType="number"
+                    android:text="">
 
                 </com.google.android.material.textfield.TextInputEditText>
 
@@ -201,10 +177,22 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#8bd3dd"
                 android:text="Update">
+
+            </Button>
+
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/goBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8bd3dd"
+                android:text="Back">
 
             </Button>
 
