@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MatchPets">
-        <activity android:name=".Matches.MatchesActivity"></activity>
+        <activity android:name="com.example.matchpets.Chat.ChatActivity"></activity>
+        <activity android:name=".Matches.MatchesActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".PetProfile" />
         <activity android:name=".MainActivity" /> <!-- create this activity to first page -->
